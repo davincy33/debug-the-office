@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FINAL - Trivia Challenge</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #0d1117;
+        color: #c9d1d9;
+        min-height: 100vh;
+        padding: 20px;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      .header {
+        background: linear-gradient(135deg, #ffd700, #f0883e);
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .header h1 {
+        font-size: 22px;
+        color: #0d1117;
+        margin-bottom: 5px;
+      }
+      .header .station {
+        font-size: 14px;
+        color: #0d1117;
+        opacity: 0.8;
+      }
+      .card {
+        background: #161b22;
+        border: 1px solid #30363d;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 16px;
+      }
+      .card h2 {
+        font-size: 16px;
+        color: #58a6ff;
+        margin-bottom: 12px;
+      }
+      .trivia-q {
+        background: #1c2128;
+        border: 1px solid #30363d;
+        border-radius: 10px;
+        padding: 16px;
+        margin: 12px 0;
+      }
+      .trivia-q .riddle {
+        font-style: italic;
+        color: #ffd6a5;
+        line-height: 1.6;
+        margin-bottom: 12px;
+        font-size: 14px;
+      }
+      .trivia-q .options {
+        margin-top: 10px;
+      }
+      .option-btn {
+        display: block;
+        width: 100%;
+        background: #0d1117;
+        border: 2px solid #30363d;
+        border-radius: 8px;
+        padding: 12px 16px;
+        margin: 6px 0;
+        font-size: 14px;
+        color: #c9d1d9;
+        text-align: left;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .option-btn:active {
+        background: #1c2128;
+      }
+      .option-btn.correct {
+        background: #0d2818;
+        border-color: #238636;
+        color: #3fb950;
+      }
+      .option-btn.wrong {
+        background: #2d1117;
+        border-color: #da3633;
+        color: #f85149;
+      }
+      .option-btn.disabled {
+        pointer-events: none;
+        opacity: 0.6;
+      }
+      .score-bar {
+        background: #1c2128;
+        border: 1px solid #30363d;
+        border-radius: 8px;
+        padding: 12px 16px;
+        text-align: center;
+        margin: 16px 0;
+      }
+      .score-bar .score {
+        font-size: 24px;
+        font-weight: bold;
+        color: #ffd700;
+      }
+      .score-bar .label {
+        font-size: 12px;
+        color: #8b949e;
+      }
+      .celebration {
+        display: none;
+        background: linear-gradient(135deg, #0d2818, #1c2128);
+        border: 3px solid #238636;
+        border-radius: 12px;
+        padding: 30px;
+        text-align: center;
+        margin: 20px 0;
+      }
+      .celebration.show {
+        display: block;
+      }
+      .celebration .trophy {
+        font-size: 60px;
+        margin-bottom: 10px;
+      }
+      .celebration h2 {
+        color: #3fb950;
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+      .celebration p {
+        color: #8b949e;
+        font-size: 14px;
+        line-height: 1.6;
+      }
+      .badge {
+        display: inline-block;
+        background: #f0883e;
+        color: #0d1117;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: bold;
+        margin: 4px 2px;
+      }
+      .footer {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 12px;
+        color: #484f58;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>FINAL CHALLENGE</h1>
+        <div class="station">Lightning Trivia - 4th Floor Terrace</div>
+      </div>
+
+      <div class="score-bar">
+        <div class="label">SCORE</div>
+        <div class="score" id="score">0 / 5</div>
+      </div>
+
+      <div class="card">
+        <h2>Q1: The Merge Mystery</h2>
+        <div class="trivia-q" id="q1">
+          <div class="riddle">
+            "I'm a git conflict you must resolve.<br />
+            If left unsolved, your merge will dissolve.<br />
+            What am I?"
+          </div>
+          <div class="options">
+            <button class="option-btn" onclick="answer(1, 'a', this)">
+              A) Pull Request
+            </button>
+            <button class="option-btn" onclick="answer(1, 'b', this)">
+              B) Merge Conflict
+            </button>
+            <button class="option-btn" onclick="answer(1, 'c', this)">
+              C) Git Stash
+            </button>
+            <button class="option-btn" onclick="answer(1, 'd', this)">
+              D) Branch
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Q2: The Reviewer's Curse</h2>
+        <div class="trivia-q" id="q2">
+          <div class="riddle">
+            "I'm written 100 times but never executed.<br />
+            I'm in every PR but often disputed.<br />
+            What am I?"
+          </div>
+          <div class="options">
+            <button class="option-btn" onclick="answer(2, 'a', this)">
+              A) Unit Tests
+            </button>
+            <button class="option-btn" onclick="answer(2, 'b', this)">
+              B) Documentation
+            </button>
+            <button class="option-btn" onclick="answer(2, 'c', this)">
+              C) Code Comments
+            </button>
+            <button class="option-btn" onclick="answer(2, 'd', this)">
+              D) Variable Names
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Q3: The Broken Promise</h2>
+        <div class="trivia-q" id="q3">
+          <div class="riddle">
+            "I break at scale, I'm deprecated fast.<br />
+            I promise you things but never last.<br />
+            What am I?"
+          </div>
+          <div class="options">
+            <button class="option-btn" onclick="answer(3, 'a', this)">
+              A) Microservices
+            </button>
+            <button class="option-btn" onclick="answer(3, 'b', this)">
+              B) Callbacks
+            </button>
+            <button class="option-btn" onclick="answer(3, 'c', this)">
+              C) REST APIs
+            </button>
+            <button class="option-btn" onclick="answer(3, 'd', this)">
+              D) Databases
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Q4: The DRY Violation</h2>
+        <div class="trivia-q" id="q4">
+          <div class="riddle">
+            "I appear twice when I should appear once.<br />
+            I'm expensive, I'm tedious, I'm a dunce.<br />
+            What am I?"
+          </div>
+          <div class="options">
+            <button class="option-btn" onclick="answer(4, 'a', this)">
+              A) Bug
+            </button>
+            <button class="option-btn" onclick="answer(4, 'b', this)">
+              B) Duplicate Code
+            </button>
+            <button class="option-btn" onclick="answer(4, 'c', this)">
+              C) Dependency
+            </button>
+            <button class="option-btn" onclick="answer(4, 'd', this)">
+              D) Console.log
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Q5: The Framework Fallacy</h2>
+        <div class="trivia-q" id="q5">
+          <div class="riddle">
+            "I promise amazing features out of the box.<br />
+            But every 6 months I'm replaced by the next fox.<br />
+            What am I?"
+          </div>
+          <div class="options">
+            <button class="option-btn" onclick="answer(5, 'a', this)">
+              A) JavaScript Frameworks
+            </button>
+            <button class="option-btn" onclick="answer(5, 'b', this)">
+              B) Operating Systems
+            </button>
+            <button class="option-btn" onclick="answer(5, 'c', this)">
+              C) IDEs
+            </button>
+            <button class="option-btn" onclick="answer(5, 'd', this)">
+              D) Programming Languages
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="celebration" id="celebration">
+        <div class="trophy">&#127942;</div>
+        <h2 id="celeb-title">TRIVIA COMPLETE!</h2>
+        <p id="celeb-text"></p>
+      </div>
+
+      <div class="footer">
+        <span class="badge">FINAL CHALLENGE</span>
+      </div>
+    </div>
+
+    <script>
+      const answers = { 1: "b", 2: "c", 3: "b", 4: "b", 5: "a" };
+      let score = 0;
+      let answered = {};
+
+      function answer(q, choice, btn) {
+        if (answered[q]) return;
+        answered[q] = true;
+
+        const container = document.getElementById("q" + q);
+        const buttons = container.querySelectorAll(".option-btn");
+
+        buttons.forEach((b) => b.classList.add("disabled"));
+
+        if (choice === answers[q]) {
+          btn.classList.add("correct");
+          score++;
+        } else {
+          btn.classList.add("wrong");
+          // Highlight correct answer
+          const correctIndex = { a: 0, b: 1, c: 2, d: 3 }[answers[q]];
+          buttons[correctIndex].classList.add("correct");
+        }
+
+        document.getElementById("score").textContent = score + " / 5";
+
+        // Check if all answered
+        if (Object.keys(answered).length === 5) {
+          setTimeout(showCelebration, 500);
+        }
+      }
+
+      function showCelebration() {
+        const celeb = document.getElementById("celebration");
+        const title = document.getElementById("celeb-title");
+        const text = document.getElementById("celeb-text");
+
+        celeb.classList.add("show");
+
+        if (score === 5) {
+          title.textContent = "PERFECT SCORE!";
+          text.innerHTML =
+            "You got 5/5! You are true Elite Debuggers!<br><br>Now find your TREASURE BOX hidden on this terrace!<br>Both teams celebrate together!";
+        } else if (score >= 3) {
+          title.textContent = "GREAT JOB!";
+          text.innerHTML = `You got ${score}/5! Solid debugging skills!<br><br>Now find your TREASURE BOX hidden on this terrace!<br>Both teams celebrate together!`;
+        } else {
+          title.textContent = "NICE TRY!";
+          text.innerHTML = `You got ${score}/5! Time to brush up on dev trivia!<br><br>Now find your TREASURE BOX hidden on this terrace!<br>Both teams celebrate together!`;
+        }
+
+        celeb.scrollIntoView({ behavior: "smooth" });
+      }
+    </script>
+  </body>
+</html>

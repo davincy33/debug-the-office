@@ -61,18 +61,6 @@
         overflow-x: auto;
         white-space: pre-wrap;
       }
-      .keyword {
-        color: #ff7b72;
-      }
-      .string {
-        color: #a5d6ff;
-      }
-      .comment {
-        color: #8b949e;
-      }
-      .func {
-        color: #d2a8ff;
-      }
       .hint {
         background: #1c2128;
         border-left: 4px solid #f0883e;
@@ -81,25 +69,80 @@
         margin: 12px 0;
         font-size: 14px;
       }
-      .answer-box {
+      .answer-section {
         background: #1c2128;
-        border: 2px dashed #238636;
+        border: 2px solid #30363d;
         border-radius: 12px;
         padding: 20px;
-        text-align: center;
         margin-top: 16px;
+        text-align: center;
       }
-      .answer-box label {
+      .answer-section label {
         font-size: 14px;
         color: #8b949e;
         display: block;
-        margin-bottom: 8px;
+        margin-bottom: 12px;
       }
-      .answer-box .format {
-        font-size: 24px;
-        font-weight: bold;
-        color: #58a6ff;
+      .answer-input {
+        background: #0d1117;
+        border: 2px solid #30363d;
+        border-radius: 8px;
+        padding: 12px 16px;
+        font-size: 20px;
+        color: #fff;
+        text-align: center;
+        width: 200px;
+        text-transform: uppercase;
+        font-family: monospace;
         letter-spacing: 2px;
+      }
+      .answer-input:focus {
+        outline: none;
+        border-color: #58a6ff;
+      }
+      .submit-btn {
+        background: #238636;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 30px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 12px;
+        width: 200px;
+      }
+      .submit-btn:active {
+        background: #2ea043;
+      }
+      .result {
+        margin-top: 16px;
+        padding: 16px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        display: none;
+      }
+      .result.correct {
+        display: block;
+        background: #0d2818;
+        border: 2px solid #238636;
+        color: #3fb950;
+      }
+      .result.wrong {
+        display: block;
+        background: #2d1117;
+        border: 2px solid #da3633;
+        color: #f85149;
+      }
+      .next-clue {
+        margin-top: 12px;
+        font-size: 14px;
+        color: #8b949e;
+      }
+      .next-clue strong {
+        color: #58a6ff;
+        font-size: 18px;
       }
       .badge {
         display: inline-block;
@@ -110,9 +153,6 @@
         font-size: 11px;
         font-weight: bold;
         margin: 4px 2px;
-      }
-      .badge.warn {
-        background: #9e6a03;
       }
       .footer {
         text-align: center;
@@ -132,51 +172,80 @@
       <div class="card">
         <h2>Find the Bug</h2>
         <div class="code-block">
-          <span class="keyword">def</span>
-          <span class="func">get_next_floor</span>(current): floors = [<span
-            class="string"
-            >"UG"</span
-          >,<span class="string">"EG"</span>,<span class="string">"A1"</span
-          >,<span class="string">"A2"</span>,<span class="string">"A3"</span
-          >,<span class="string">"A4"</span>]
-          <span class="keyword">return</span> floors[current + 1]
-          <span class="comment"># BUG! IndexError!</span>
+          <span style="color: #ff7b72">def</span>
+          <span style="color: #d2a8ff">get_next_floor</span>(current): floors =
+          [<span style="color: #a5d6ff">"UG"</span>,<span style="color: #a5d6ff"
+            >"EG"</span
+          >,<span style="color: #a5d6ff">"A1"</span>,<span
+            style="color: #a5d6ff"
+            >"A2"</span
+          >,<span style="color: #a5d6ff">"A3"</span>,<span
+            style="color: #a5d6ff"
+            >"A4"</span
+          >] <span style="color: #ff7b72">return</span> floors[current + 1]
+          <span style="color: #8b949e"># BUG! IndexError!</span>
         </div>
       </div>
 
       <div class="card">
         <h2>Mission</h2>
-        <p>Fix the IndexError!</p>
+        <p>Fix the IndexError! Then find your next destination.</p>
         <br />
-        <p><strong>Building Layout:</strong></p>
-        <div class="code-block">
-          Index 0: UG (Underground) Index 1: EG (Entrance Ground) Index 2: A1
-          (1st Floor) Index 3: A2 (2nd Floor) Index 4: A3 (3rd Floor) Index 5:
-          A4 (4th Floor)
-        </div>
-      </div>
-
-      <div class="card">
-        <h2>Question</h2>
         <p>
-          What is the <strong>7th valid room</strong> on 1st Floor (A-section)?
+          <strong>Question:</strong> What is the
+          <strong>7th valid room</strong> on 1st Floor (A-section)?
         </p>
-        <br />
         <div class="hint">
           A-section rooms skip .02<br />
           Valid rooms: 01, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12
         </div>
       </div>
 
-      <div class="answer-box">
-        <label>YOUR ANSWER</label>
-        <div class="format">A1.0_</div>
+      <div class="answer-section">
+        <label>ENTER YOUR ANSWER</label>
+        <input
+          type="text"
+          class="answer-input"
+          id="answer"
+          placeholder="A1.__"
+          maxlength="5"
+          autocomplete="off"
+        />
+        <br />
+        <button class="submit-btn" onclick="checkAnswer()">SUBMIT</button>
+        <div class="result" id="result"></div>
       </div>
 
       <div class="footer">
-        <span class="badge">Time: 5-8 mins</span>
-        <span class="badge warn">Show answer to HOST</span>
+        <span class="badge">Station 1 of 5</span>
       </div>
     </div>
+
+    <script>
+      function checkAnswer() {
+        const input = document
+          .getElementById("answer")
+          .value.trim()
+          .toUpperCase()
+          .replace(/\s/g, "");
+        const result = document.getElementById("result");
+
+        if (input === "A1.08" || input === "A108") {
+          result.className = "result correct";
+          result.innerHTML =
+            '&#10004; CORRECT!<div class="next-clue">Next station: <strong>Room A1.08 (1st Floor, Section A)</strong><br>Take the elevator up!</div>';
+        } else {
+          result.className = "result wrong";
+          result.innerHTML =
+            "&#10008; Try again! Count the 7th valid room carefully.";
+        }
+      }
+
+      document
+        .getElementById("answer")
+        .addEventListener("keypress", function (e) {
+          if (e.key === "Enter") checkAnswer();
+        });
+    </script>
   </body>
 </html>

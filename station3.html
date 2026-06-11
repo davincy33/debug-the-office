@@ -65,8 +65,9 @@
         color: #3fb950;
         font-weight: bold;
       }
-      .commit .msg {
-        color: #c9d1d9;
+      .highlight {
+        color: #ffd700;
+        font-weight: bold;
       }
       .code-block {
         background: #0d1117;
@@ -78,18 +79,6 @@
         line-height: 1.8;
         color: #e6edf3;
       }
-      .keyword {
-        color: #ff7b72;
-      }
-      .string {
-        color: #a5d6ff;
-      }
-      .comment {
-        color: #8b949e;
-      }
-      .func {
-        color: #d2a8ff;
-      }
       .hint {
         background: #1c2128;
         border-left: 4px solid #f0883e;
@@ -98,25 +87,80 @@
         margin: 12px 0;
         font-size: 14px;
       }
-      .answer-box {
+      .answer-section {
         background: #1c2128;
-        border: 2px dashed #f0883e;
+        border: 2px solid #30363d;
         border-radius: 12px;
         padding: 20px;
-        text-align: center;
         margin-top: 16px;
+        text-align: center;
       }
-      .answer-box label {
+      .answer-section label {
         font-size: 14px;
         color: #8b949e;
         display: block;
-        margin-bottom: 8px;
+        margin-bottom: 12px;
       }
-      .answer-box .format {
-        font-size: 24px;
-        font-weight: bold;
-        color: #58a6ff;
+      .answer-input {
+        background: #0d1117;
+        border: 2px solid #30363d;
+        border-radius: 8px;
+        padding: 12px 16px;
+        font-size: 20px;
+        color: #fff;
+        text-align: center;
+        width: 200px;
+        text-transform: uppercase;
+        font-family: monospace;
         letter-spacing: 2px;
+      }
+      .answer-input:focus {
+        outline: none;
+        border-color: #58a6ff;
+      }
+      .submit-btn {
+        background: #da3633;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 30px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 12px;
+        width: 200px;
+      }
+      .submit-btn:active {
+        background: #f85149;
+      }
+      .result {
+        margin-top: 16px;
+        padding: 16px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        display: none;
+      }
+      .result.correct {
+        display: block;
+        background: #0d2818;
+        border: 2px solid #238636;
+        color: #3fb950;
+      }
+      .result.wrong {
+        display: block;
+        background: #2d1117;
+        border: 2px solid #da3633;
+        color: #f85149;
+      }
+      .next-clue {
+        margin-top: 12px;
+        font-size: 14px;
+        color: #8b949e;
+      }
+      .next-clue strong {
+        color: #58a6ff;
+        font-size: 18px;
       }
       .badge {
         display: inline-block;
@@ -127,9 +171,6 @@
         font-size: 11px;
         font-weight: bold;
         margin: 4px 2px;
-      }
-      .badge.warn {
-        background: #9e6a03;
       }
       .footer {
         text-align: center;
@@ -147,40 +188,41 @@
       </div>
 
       <div class="card">
-        <h2>Git Commit Log - Async Journey</h2>
+        <h2>Git Commit Log</h2>
         <div class="commit">
           <span class="hash">a7f3b1</span> - <span class="type">feat:</span>
-          <span class="msg"><strong>promise</strong> to visit floor 3</span>
+          <span class="highlight">promise</span> to visit floor 3
         </div>
         <div class="commit">
           <span class="hash">8e2c9d</span> - <span class="type">fix:</span>
-          <span class="msg"><strong>async</strong> bug in elevator logic</span>
+          <span class="highlight">async</span> bug in elevator logic
         </div>
         <div class="commit">
-          <span class="hash">5b4e6f</span> - <span class="type">refactor:</span>
-          <span class="msg">escape callback hell</span>
+          <span class="hash">5b4e6f</span> -
+          <span class="type">refactor:</span> escape callback hell
         </div>
         <div class="commit">
           <span class="hash">c1d8a2</span> - <span class="type">chore:</span>
-          <span class="msg"
-            ><strong>await</strong> resolution in section C</span
-          >
+          <span class="highlight">await</span> resolution in section C
         </div>
         <div class="commit">
-          <span class="hash">9f7e3c</span> - <span class="type">fix:</span>
-          <span class="msg">finally reached clarity</span>
+          <span class="hash">9f7e3c</span> -
+          <span class="type">fix:</span> finally reached clarity
         </div>
       </div>
 
       <div class="card">
-        <h2>Decode the Callback Chain</h2>
+        <h2>Decode the Chain</h2>
         <div class="code-block">
-          <span class="func">visitFloor</span>(<span class="string">'2'</span>)
-          .<span class="func">then</span>(visitSection)
-          <span class="comment">// Which section?</span> .<span class="func"
+          <span style="color: #d2a8ff">visitFloor</span>(<span
+            style="color: #a5d6ff"
+            >'2'</span
+          >) .<span style="color: #d2a8ff">then</span>(visitSection)
+          <span style="color: #8b949e">// Which section?</span> .<span
+            style="color: #d2a8ff"
             >then</span
-          >(getRoom) <span class="comment">// Which room?</span> .<span
-            class="func"
+          >(getRoom) <span style="color: #8b949e">// Which room?</span> .<span
+            style="color: #d2a8ff"
             >finally</span
           >(celebrate)
         </div>
@@ -189,22 +231,58 @@
       <div class="card">
         <h2>Hints</h2>
         <div class="hint">
-          1. Find <strong>"section X"</strong> mentioned in the commits<br /><br />
-          2. Count the async keywords: <strong>promise</strong>,
+          1. Find <strong>"section X"</strong> in the commits<br /><br />
+          2. Count async keywords: <strong>promise</strong>,
           <strong>async</strong>, <strong>await</strong><br />
           &nbsp;&nbsp;&nbsp;That count = your room number!
         </div>
       </div>
 
-      <div class="answer-box">
-        <label>YOUR ANSWER</label>
-        <div class="format">C_.0_</div>
+      <div class="answer-section">
+        <label>ENTER YOUR ANSWER (e.g. C2.03)</label>
+        <input
+          type="text"
+          class="answer-input"
+          id="answer"
+          placeholder="C_.0_"
+          maxlength="5"
+          autocomplete="off"
+        />
+        <br />
+        <button class="submit-btn" onclick="checkAnswer()">SUBMIT</button>
+        <div class="result" id="result"></div>
       </div>
 
       <div class="footer">
-        <span class="badge">Time: 7-10 mins</span>
-        <span class="badge warn">Show answer to HOST</span>
+        <span class="badge">Station 3 of 5</span>
       </div>
     </div>
+
+    <script>
+      function checkAnswer() {
+        const input = document
+          .getElementById("answer")
+          .value.trim()
+          .toUpperCase()
+          .replace(/\s/g, "");
+        const result = document.getElementById("result");
+
+        if (input === "C2.03" || input === "C203") {
+          result.className = "result correct";
+          result.innerHTML =
+            '&#10004; CORRECT!<div class="next-clue">Next station: <strong>Room C2.05 (2nd Floor, Section C)</strong><br>Take the elevator to Floor 2!</div>';
+        } else {
+          result.className = "result wrong";
+          result.innerHTML =
+            '&#10008; Try again! Check the commits for "section" and count async keywords.';
+        }
+      }
+
+      document
+        .getElementById("answer")
+        .addEventListener("keypress", function (e) {
+          if (e.key === "Enter") checkAnswer();
+        });
+    </script>
   </body>
 </html>

@@ -75,7 +75,7 @@
       .painting .highlight {
         color: #ffd700;
         font-weight: bold;
-        font-size: 18px;
+        font-size: 20px;
       }
       .metaphor {
         display: flex;
@@ -95,10 +95,6 @@
       .metaphor-item .symbol {
         font-size: 28px;
         margin-bottom: 6px;
-      }
-      .metaphor-item .label {
-        font-size: 12px;
-        color: #8b949e;
       }
       .metaphor-item .meaning {
         font-size: 14px;
@@ -129,25 +125,79 @@
         margin: 12px 0;
         color: #58a6ff;
       }
-      .answer-box {
+      .answer-section {
         background: #1c2128;
-        border: 2px dashed #3fb950;
+        border: 2px solid #30363d;
         border-radius: 12px;
         padding: 20px;
-        text-align: center;
         margin-top: 16px;
+        text-align: center;
       }
-      .answer-box label {
+      .answer-section label {
         font-size: 14px;
         color: #8b949e;
         display: block;
-        margin-bottom: 8px;
+        margin-bottom: 12px;
       }
-      .answer-box .format {
-        font-size: 28px;
-        font-weight: bold;
-        color: #3fb950;
+      .answer-input {
+        background: #0d1117;
+        border: 2px solid #30363d;
+        border-radius: 8px;
+        padding: 12px 16px;
+        font-size: 24px;
+        color: #fff;
+        text-align: center;
+        width: 120px;
+        font-family: monospace;
         letter-spacing: 2px;
+      }
+      .answer-input:focus {
+        outline: none;
+        border-color: #58a6ff;
+      }
+      .submit-btn {
+        background: #238636;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 30px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 12px;
+        width: 200px;
+      }
+      .submit-btn:active {
+        background: #2ea043;
+      }
+      .result {
+        margin-top: 16px;
+        padding: 16px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        display: none;
+      }
+      .result.correct {
+        display: block;
+        background: #0d2818;
+        border: 2px solid #238636;
+        color: #3fb950;
+      }
+      .result.wrong {
+        display: block;
+        background: #2d1117;
+        border: 2px solid #da3633;
+        color: #f85149;
+      }
+      .next-clue {
+        margin-top: 12px;
+        font-size: 14px;
+        color: #8b949e;
+      }
+      .next-clue strong {
+        color: #3fb950;
+        font-size: 18px;
       }
       .badge {
         display: inline-block;
@@ -158,9 +208,6 @@
         font-size: 11px;
         font-weight: bold;
         margin: 4px 2px;
-      }
-      .badge.warn {
-        background: #9e6a03;
       }
       .badge.final {
         background: #da3633;
@@ -199,13 +246,11 @@
         <div class="metaphor">
           <div class="metaphor-item">
             <div class="symbol">&#9971;</div>
-            <div class="label">GOLF</div>
             <div class="meaning">Progress Upward</div>
           </div>
           <div class="metaphor-item">
             <div class="symbol">&#9748;</div>
-            <div class="label">UMBRELLA</div>
-            <div class="meaning">Shelter / Top / Cover</div>
+            <div class="meaning">Shelter / Top</div>
           </div>
         </div>
       </div>
@@ -217,20 +262,51 @@
           Where is the ultimate shelter?<br />
           <strong>At the TOP.</strong>"
         </div>
-
         <div class="math">10 - 6 (building levels) = <strong>?</strong></div>
       </div>
 
-      <div class="answer-box">
-        <label>YOUR ANSWER</label>
-        <div class="format">Floor _</div>
+      <div class="answer-section">
+        <label>WHICH FLOOR IS THE ULTIMATE SHELTER?</label>
+        <input
+          type="text"
+          class="answer-input"
+          id="answer"
+          placeholder="?"
+          maxlength="1"
+          autocomplete="off"
+        />
+        <br />
+        <button class="submit-btn" onclick="checkAnswer()">SUBMIT</button>
+        <div class="result" id="result"></div>
       </div>
 
       <div class="footer">
-        <span class="badge">Time: 5-7 mins</span>
-        <span class="badge warn">Show answer to HOST</span>
-        <span class="badge final">FINAL STATION!</span>
+        <span class="badge">Station 5 of 5</span>
+        <span class="badge final">FINAL PUZZLE!</span>
       </div>
     </div>
+
+    <script>
+      function checkAnswer() {
+        const input = document.getElementById("answer").value.trim();
+        const result = document.getElementById("result");
+
+        if (input === "4") {
+          result.className = "result correct";
+          result.innerHTML =
+            '&#10004; CORRECT! FLOOR 4!<div class="next-clue"><strong>HEAD TO THE 4TH FLOOR TERRACE!</strong><br>The SOURCE CODE awaits. Take the elevator up!<br><br>&#127881; You\'ve debugged the office! &#127881;</div>';
+        } else {
+          result.className = "result wrong";
+          result.innerHTML =
+            "&#10008; Not quite! Think: 10 golf balls minus 6 building levels = ?";
+        }
+      }
+
+      document
+        .getElementById("answer")
+        .addEventListener("keypress", function (e) {
+          if (e.key === "Enter") checkAnswer();
+        });
+    </script>
   </body>
 </html>

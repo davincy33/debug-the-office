@@ -76,18 +76,7 @@
         line-height: 1.6;
         color: #e6edf3;
         overflow-x: auto;
-      }
-      .keyword {
-        color: #ff7b72;
-      }
-      .string {
-        color: #a5d6ff;
-      }
-      .comment {
-        color: #8b949e;
-      }
-      .danger {
-        color: #f85149;
+        white-space: pre-wrap;
       }
       .leaked {
         padding: 8px 12px;
@@ -114,49 +103,111 @@
         font-size: 14px;
         font-style: italic;
       }
-      .options {
-        margin: 12px 0;
-      }
-      .option {
-        padding: 10px 14px;
-        margin: 6px 0;
-        border-radius: 8px;
+      .answer-section {
         background: #1c2128;
-        border: 1px solid #30363d;
-        font-size: 14px;
-      }
-      .answer-box {
-        background: #1c2128;
-        border: 2px dashed #da3633;
+        border: 2px solid #30363d;
         border-radius: 12px;
         padding: 20px;
-        text-align: center;
         margin-top: 16px;
+        text-align: center;
       }
-      .answer-box label {
+      .answer-section label {
         font-size: 14px;
         color: #8b949e;
         display: block;
-        margin-bottom: 8px;
+        margin-bottom: 12px;
       }
-      .answer-box .format {
-        font-size: 24px;
-        font-weight: bold;
-        color: #58a6ff;
+      .answer-row {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 12px;
+      }
+      .answer-input {
+        background: #0d1117;
+        border: 2px solid #30363d;
+        border-radius: 8px;
+        padding: 12px 16px;
+        font-size: 18px;
+        color: #fff;
+        text-align: center;
+        width: 140px;
+        text-transform: uppercase;
+        font-family: monospace;
         letter-spacing: 2px;
+      }
+      .answer-input:focus {
+        outline: none;
+        border-color: #58a6ff;
+      }
+      select {
+        background: #0d1117;
+        border: 2px solid #30363d;
+        border-radius: 8px;
+        padding: 12px 16px;
+        font-size: 16px;
+        color: #fff;
+        width: 220px;
+      }
+      select:focus {
+        outline: none;
+        border-color: #58a6ff;
+      }
+      .submit-btn {
+        background: #6e40c9;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 30px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 12px;
+        width: 220px;
+      }
+      .submit-btn:active {
+        background: #8957e5;
+      }
+      .result {
+        margin-top: 16px;
+        padding: 16px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        display: none;
+      }
+      .result.correct {
+        display: block;
+        background: #0d2818;
+        border: 2px solid #238636;
+        color: #3fb950;
+      }
+      .result.wrong {
+        display: block;
+        background: #2d1117;
+        border: 2px solid #da3633;
+        color: #f85149;
+      }
+      .next-clue {
+        margin-top: 12px;
+        font-size: 14px;
+        color: #8b949e;
+      }
+      .next-clue strong {
+        color: #58a6ff;
+        font-size: 18px;
       }
       .badge {
         display: inline-block;
-        background: #da3633;
+        background: #6e40c9;
         color: #fff;
         padding: 4px 10px;
         border-radius: 20px;
         font-size: 11px;
         font-weight: bold;
         margin: 4px 2px;
-      }
-      .badge.warn {
-        background: #9e6a03;
       }
       .footer {
         text-align: center;
@@ -181,28 +232,22 @@
       <div class="card">
         <h2>Original Query</h2>
         <div class="code-block">
-          <span class="keyword">SELECT</span> *
-          <span class="keyword">FROM</span> treasure
-          <span class="keyword">WHERE</span> location
-          <span class="keyword">LIKE</span>
-          <span class="string">'3rd_floor%'</span>;
+          <span style="color: #ff7b72">SELECT</span> *
+          <span style="color: #ff7b72">FROM</span> treasure
+          <span style="color: #ff7b72">WHERE</span> location
+          <span style="color: #ff7b72">LIKE</span>
+          <span style="color: #a5d6ff">'3rd_floor%'</span>;
         </div>
       </div>
 
       <div class="card">
         <h2>Malicious Injection</h2>
         <div class="code-block">
-          <span class="comment">-- Attacker input:</span> location =
-          <span class="danger">"3rd_floor%' OR '1'='1"</span>
+          <span style="color: #8b949e">-- Attacker input:</span> location =
+          <span style="color: #f85149">"3rd_floor%' OR '1'='1"</span>
 
-          <span class="comment">-- Query becomes:</span>
-          <span class="keyword">SELECT</span> *
-          <span class="keyword">FROM</span> treasure
-          <span class="keyword">WHERE</span> location
-          <span class="keyword">LIKE</span>
-          <span class="string">'3rd_floor%'</span>
-          <span class="danger">OR '1'='1'</span>
-          <span class="comment">-- Always TRUE! All rows returned!</span>
+          <span style="color: #8b949e">-- This makes WHERE always TRUE!</span>
+          <span style="color: #8b949e">-- All treasure locations leaked!</span>
         </div>
       </div>
 
@@ -216,33 +261,66 @@
         <div class="hint">"Art is the ultimate form of expression"</div>
       </div>
 
-      <div class="card">
-        <h2>Mission 1: Which room has the treasure?</h2>
-        <div class="answer-box" style="border-color: #6e40c9">
-          <label>ROOM ANSWER</label>
-          <div class="format">C3.0_</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <h2>Mission 2: How do you fix SQL injection?</h2>
-        <div class="options">
-          <div class="option">A) Use prepared statements</div>
-          <div class="option">B) Use string concatenation</div>
-          <div class="option">C) Use regex filtering</div>
-          <div class="option">D) Disable SQL</div>
-        </div>
-      </div>
-
-      <div class="answer-box">
-        <label>BOTH ANSWERS REQUIRED</label>
-        <div class="format">C3.0_ + Letter _</div>
+      <div class="answer-section">
+        <label>MISSION 1: Which room has the treasure?</label>
+        <input
+          type="text"
+          class="answer-input"
+          id="answer1"
+          placeholder="C3.__"
+          maxlength="5"
+          autocomplete="off"
+        />
+        <br /><br />
+        <label>MISSION 2: How do you fix SQL injection?</label>
+        <select id="answer2">
+          <option value="">-- Select fix --</option>
+          <option value="a">A) Prepared statements</option>
+          <option value="b">B) String concatenation</option>
+          <option value="c">C) Regex filtering</option>
+          <option value="d">D) Disable SQL</option>
+        </select>
+        <br />
+        <button class="submit-btn" onclick="checkAnswer()">SUBMIT BOTH</button>
+        <div class="result" id="result"></div>
       </div>
 
       <div class="footer">
-        <span class="badge">Time: 7-10 mins</span>
-        <span class="badge warn">Show BOTH answers to HOST</span>
+        <span class="badge">Station 4 of 5</span>
       </div>
     </div>
+
+    <script>
+      function checkAnswer() {
+        const room = document
+          .getElementById("answer1")
+          .value.trim()
+          .toUpperCase()
+          .replace(/\s/g, "");
+        const fix = document.getElementById("answer2").value;
+        const result = document.getElementById("result");
+
+        const roomCorrect = room === "C3.03" || room === "C303";
+        const fixCorrect = fix === "a";
+
+        if (roomCorrect && fixCorrect) {
+          result.className = "result correct";
+          result.innerHTML =
+            '&#10004; BOTH CORRECT!<div class="next-clue">Next station: <strong>Room C3.03 (3rd Floor, Paintings Room)</strong><br>Take the elevator to Floor 3!</div>';
+        } else if (roomCorrect && !fixCorrect) {
+          result.className = "result wrong";
+          result.innerHTML =
+            "&#10008; Room is correct! But the SQL fix is wrong. Think about how to separate data from queries...";
+        } else if (!roomCorrect && fixCorrect) {
+          result.className = "result wrong";
+          result.innerHTML =
+            '&#10008; SQL fix is correct! But which room relates to "art" and "expression"?';
+        } else {
+          result.className = "result wrong";
+          result.innerHTML =
+            "&#10008; Both wrong. Hint: Which room is an art gallery? And how do you safely handle user input in SQL?";
+        }
+      }
+    </script>
   </body>
 </html>
