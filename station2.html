@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Station 2 - Regex Revolution</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #0d1117;
+        color: #c9d1d9;
+        min-height: 100vh;
+        padding: 20px;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      .header {
+        background: linear-gradient(135deg, #8957e5, #1f6feb);
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .header h1 {
+        font-size: 20px;
+        color: #fff;
+        margin-bottom: 5px;
+      }
+      .header .station {
+        font-size: 14px;
+        color: #d2b8ff;
+      }
+      .card {
+        background: #161b22;
+        border: 1px solid #30363d;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 16px;
+      }
+      .card h2 {
+        font-size: 16px;
+        color: #58a6ff;
+        margin-bottom: 12px;
+      }
+      .log-entry {
+        padding: 8px 12px;
+        border-radius: 6px;
+        margin: 4px 0;
+        font-family: monospace;
+        font-size: 13px;
+      }
+      .valid {
+        background: #0d2818;
+        border-left: 3px solid #238636;
+      }
+      .invalid {
+        background: #2d1117;
+        border-left: 3px solid #da3633;
+      }
+      .hint {
+        background: #1c2128;
+        border-left: 4px solid #f0883e;
+        padding: 12px 16px;
+        border-radius: 0 8px 8px 0;
+        margin: 12px 0;
+        font-size: 14px;
+      }
+      .rule {
+        background: #1c2128;
+        border: 1px solid #30363d;
+        border-radius: 8px;
+        padding: 16px;
+        margin: 12px 0;
+      }
+      .rule .valid-mark {
+        color: #3fb950;
+      }
+      .rule .invalid-mark {
+        color: #f85149;
+      }
+      .answer-box {
+        background: #1c2128;
+        border: 2px dashed #8957e5;
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        margin-top: 16px;
+      }
+      .answer-box label {
+        font-size: 14px;
+        color: #8b949e;
+        display: block;
+        margin-bottom: 8px;
+      }
+      .answer-box .format {
+        font-size: 24px;
+        font-weight: bold;
+        color: #58a6ff;
+        letter-spacing: 2px;
+      }
+      .badge {
+        display: inline-block;
+        background: #8957e5;
+        color: #fff;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: bold;
+        margin: 4px 2px;
+      }
+      .badge.warn {
+        background: #9e6a03;
+      }
+      .footer {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 12px;
+        color: #484f58;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>STATION 2</h1>
+        <div class="station">Regex Revolution</div>
+      </div>
+
+      <div class="card">
+        <h2>User Log Analysis</h2>
+        <div class="log-entry valid">
+          [2024-01-15] john_dev &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#10004; VALID
+        </div>
+        <div class="log-entry valid">
+          [2024-01-16] alice.smith &nbsp;&nbsp; &#10004; VALID
+        </div>
+        <div class="log-entry invalid">
+          [2024-01-17] bob@company &nbsp;&nbsp; &#10008; INVALID
+        </div>
+        <div class="log-entry valid">
+          [2024-01-18] charlie_1 &nbsp;&nbsp;&nbsp; &#10004; VALID
+        </div>
+        <div class="log-entry invalid">
+          [2024-01-19] dave-ops &nbsp;&nbsp;&nbsp;&nbsp; &#10008; INVALID
+        </div>
+        <div class="log-entry valid">
+          [2024-01-20] eve.admin &nbsp;&nbsp;&nbsp; &#10004; VALID
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Pattern Rule</h2>
+        <div class="rule">
+          <span class="valid-mark">&#10004; Valid</span> = contains underscore
+          <code>_</code> OR dot <code>.</code><br /><br />
+          <span class="invalid-mark">&#10008; Invalid</span> = contains
+          <code>@</code> symbol OR dash <code>-</code>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Security Investigation</h2>
+        <p>
+          4 valid users attended a meeting in
+          <strong>Section B, Floor 1</strong>.
+        </p>
+        <br />
+        <div class="hint">
+          B-section only has 2 rooms: <strong>B1.01</strong> and
+          <strong>B1.03</strong><br /><br />
+          All 4 users were in the <strong>SAME room</strong> (meeting!)
+        </div>
+        <br />
+        <p><strong>Question:</strong> Which room?</p>
+      </div>
+
+      <div class="answer-box">
+        <label>YOUR ANSWER</label>
+        <div class="format">B1.0_</div>
+      </div>
+
+      <div class="footer">
+        <span class="badge">Time: 7-10 mins</span>
+        <span class="badge warn">Show answer to HOST</span>
+      </div>
+    </div>
+  </body>
+</html>

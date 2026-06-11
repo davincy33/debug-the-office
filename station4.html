@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Station 4 - SQL Injection</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #0d1117;
+        color: #c9d1d9;
+        min-height: 100vh;
+        padding: 20px;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      .header {
+        background: linear-gradient(135deg, #da3633, #6e40c9);
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .header h1 {
+        font-size: 20px;
+        color: #fff;
+        margin-bottom: 5px;
+      }
+      .header .station {
+        font-size: 14px;
+        color: #ffb3b3;
+      }
+      .alert {
+        background: #2d1117;
+        border: 1px solid #f85149;
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 16px;
+        text-align: center;
+      }
+      .alert .icon {
+        font-size: 30px;
+      }
+      .alert p {
+        color: #f85149;
+        font-weight: bold;
+        font-size: 15px;
+        margin-top: 6px;
+      }
+      .card {
+        background: #161b22;
+        border: 1px solid #30363d;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 16px;
+      }
+      .card h2 {
+        font-size: 16px;
+        color: #58a6ff;
+        margin-bottom: 12px;
+      }
+      .code-block {
+        background: #0d1117;
+        border: 1px solid #30363d;
+        border-radius: 8px;
+        padding: 16px;
+        font-family: "Fira Code", "Courier New", monospace;
+        font-size: 13px;
+        line-height: 1.6;
+        color: #e6edf3;
+        overflow-x: auto;
+      }
+      .keyword {
+        color: #ff7b72;
+      }
+      .string {
+        color: #a5d6ff;
+      }
+      .comment {
+        color: #8b949e;
+      }
+      .danger {
+        color: #f85149;
+      }
+      .leaked {
+        padding: 8px 12px;
+        border-radius: 6px;
+        margin: 4px 0;
+        font-family: monospace;
+        font-size: 13px;
+      }
+      .leaked.normal {
+        background: #0d1117;
+        border-left: 3px solid #30363d;
+      }
+      .leaked.special {
+        background: #0d2818;
+        border-left: 3px solid #238636;
+        font-weight: bold;
+      }
+      .hint {
+        background: #1c2128;
+        border-left: 4px solid #f0883e;
+        padding: 12px 16px;
+        border-radius: 0 8px 8px 0;
+        margin: 12px 0;
+        font-size: 14px;
+        font-style: italic;
+      }
+      .options {
+        margin: 12px 0;
+      }
+      .option {
+        padding: 10px 14px;
+        margin: 6px 0;
+        border-radius: 8px;
+        background: #1c2128;
+        border: 1px solid #30363d;
+        font-size: 14px;
+      }
+      .answer-box {
+        background: #1c2128;
+        border: 2px dashed #da3633;
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        margin-top: 16px;
+      }
+      .answer-box label {
+        font-size: 14px;
+        color: #8b949e;
+        display: block;
+        margin-bottom: 8px;
+      }
+      .answer-box .format {
+        font-size: 24px;
+        font-weight: bold;
+        color: #58a6ff;
+        letter-spacing: 2px;
+      }
+      .badge {
+        display: inline-block;
+        background: #da3633;
+        color: #fff;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: bold;
+        margin: 4px 2px;
+      }
+      .badge.warn {
+        background: #9e6a03;
+      }
+      .footer {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 12px;
+        color: #484f58;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>STATION 4</h1>
+        <div class="station">SQL Injection Escape Room</div>
+      </div>
+
+      <div class="alert">
+        <div class="icon">&#128680;</div>
+        <p>SECURITY BREACH DETECTED</p>
+      </div>
+
+      <div class="card">
+        <h2>Original Query</h2>
+        <div class="code-block">
+          <span class="keyword">SELECT</span> *
+          <span class="keyword">FROM</span> treasure
+          <span class="keyword">WHERE</span> location
+          <span class="keyword">LIKE</span>
+          <span class="string">'3rd_floor%'</span>;
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Malicious Injection</h2>
+        <div class="code-block">
+          <span class="comment">-- Attacker input:</span> location =
+          <span class="danger">"3rd_floor%' OR '1'='1"</span>
+
+          <span class="comment">-- Query becomes:</span>
+          <span class="keyword">SELECT</span> *
+          <span class="keyword">FROM</span> treasure
+          <span class="keyword">WHERE</span> location
+          <span class="keyword">LIKE</span>
+          <span class="string">'3rd_floor%'</span>
+          <span class="danger">OR '1'='1'</span>
+          <span class="comment">-- Always TRUE! All rows returned!</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Leaked Treasure Locations</h2>
+        <div class="leaked normal">C3.01 - Storage room</div>
+        <div class="leaked special">C3.03 - PAINTINGS GALLERY &#127912;</div>
+        <div class="leaked normal">C3.08 - Quiet zone</div>
+        <div class="leaked normal">C3.11 - Meeting pod</div>
+        <br />
+        <div class="hint">"Art is the ultimate form of expression"</div>
+      </div>
+
+      <div class="card">
+        <h2>Mission 1: Which room has the treasure?</h2>
+        <div class="answer-box" style="border-color: #6e40c9">
+          <label>ROOM ANSWER</label>
+          <div class="format">C3.0_</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Mission 2: How do you fix SQL injection?</h2>
+        <div class="options">
+          <div class="option">A) Use prepared statements</div>
+          <div class="option">B) Use string concatenation</div>
+          <div class="option">C) Use regex filtering</div>
+          <div class="option">D) Disable SQL</div>
+        </div>
+      </div>
+
+      <div class="answer-box">
+        <label>BOTH ANSWERS REQUIRED</label>
+        <div class="format">C3.0_ + Letter _</div>
+      </div>
+
+      <div class="footer">
+        <span class="badge">Time: 7-10 mins</span>
+        <span class="badge warn">Show BOTH answers to HOST</span>
+      </div>
+    </div>
+  </body>
+</html>

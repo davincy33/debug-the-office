@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Station 5 - Art of Debugging</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #0d1117;
+        color: #c9d1d9;
+        min-height: 100vh;
+        padding: 20px;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      .header {
+        background: linear-gradient(135deg, #3fb950, #1f6feb);
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .header h1 {
+        font-size: 20px;
+        color: #fff;
+        margin-bottom: 5px;
+      }
+      .header .station {
+        font-size: 14px;
+        color: #b8ffc4;
+      }
+      .card {
+        background: #161b22;
+        border: 1px solid #30363d;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 16px;
+      }
+      .card h2 {
+        font-size: 16px;
+        color: #58a6ff;
+        margin-bottom: 12px;
+      }
+      .painting {
+        background: linear-gradient(135deg, #1c3d2e, #0d2818);
+        border: 3px solid #238636;
+        border-radius: 12px;
+        padding: 20px;
+        margin: 12px 0;
+        text-align: center;
+      }
+      .painting .icon {
+        font-size: 40px;
+        margin-bottom: 10px;
+      }
+      .painting .title {
+        font-size: 16px;
+        font-weight: bold;
+        color: #3fb950;
+        margin-bottom: 8px;
+      }
+      .painting .details {
+        font-size: 14px;
+        color: #8b949e;
+        line-height: 1.8;
+      }
+      .painting .highlight {
+        color: #ffd700;
+        font-weight: bold;
+        font-size: 18px;
+      }
+      .metaphor {
+        display: flex;
+        gap: 12px;
+        margin: 12px 0;
+        flex-wrap: wrap;
+      }
+      .metaphor-item {
+        flex: 1;
+        min-width: 140px;
+        background: #1c2128;
+        border: 1px solid #30363d;
+        border-radius: 8px;
+        padding: 14px;
+        text-align: center;
+      }
+      .metaphor-item .symbol {
+        font-size: 28px;
+        margin-bottom: 6px;
+      }
+      .metaphor-item .label {
+        font-size: 12px;
+        color: #8b949e;
+      }
+      .metaphor-item .meaning {
+        font-size: 14px;
+        color: #c9d1d9;
+        font-weight: bold;
+        margin-top: 4px;
+      }
+      .riddle {
+        background: #1c2128;
+        border: 2px solid #f0883e;
+        border-radius: 12px;
+        padding: 20px;
+        margin: 16px 0;
+        text-align: center;
+        font-size: 15px;
+        font-style: italic;
+        line-height: 1.8;
+        color: #ffd6a5;
+      }
+      .math {
+        background: #0d1117;
+        border: 1px solid #30363d;
+        border-radius: 8px;
+        padding: 14px;
+        text-align: center;
+        font-family: monospace;
+        font-size: 18px;
+        margin: 12px 0;
+        color: #58a6ff;
+      }
+      .answer-box {
+        background: #1c2128;
+        border: 2px dashed #3fb950;
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        margin-top: 16px;
+      }
+      .answer-box label {
+        font-size: 14px;
+        color: #8b949e;
+        display: block;
+        margin-bottom: 8px;
+      }
+      .answer-box .format {
+        font-size: 28px;
+        font-weight: bold;
+        color: #3fb950;
+        letter-spacing: 2px;
+      }
+      .badge {
+        display: inline-block;
+        background: #238636;
+        color: #fff;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: bold;
+        margin: 4px 2px;
+      }
+      .badge.warn {
+        background: #9e6a03;
+      }
+      .badge.final {
+        background: #da3633;
+      }
+      .footer {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 12px;
+        color: #484f58;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>STATION 5</h1>
+        <div class="station">The Art of Debugging</div>
+      </div>
+
+      <div class="card">
+        <h2>Look at the Painting</h2>
+        <div class="painting">
+          <div class="icon">&#9971; &#9748;</div>
+          <div class="title">Golf Course with Umbrella</div>
+          <div class="details">
+            <span class="highlight">10 golf balls</span> visible on the
+            course<br />
+            Umbrella open overhead<br />
+            A journey toward shelter
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Decode the Metaphor</h2>
+        <div class="metaphor">
+          <div class="metaphor-item">
+            <div class="symbol">&#9971;</div>
+            <div class="label">GOLF</div>
+            <div class="meaning">Progress Upward</div>
+          </div>
+          <div class="metaphor-item">
+            <div class="symbol">&#9748;</div>
+            <div class="label">UMBRELLA</div>
+            <div class="meaning">Shelter / Top / Cover</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>The Riddle</h2>
+        <div class="riddle">
+          "10 attempts to reach cover overhead.<br />
+          Where is the ultimate shelter?<br />
+          <strong>At the TOP.</strong>"
+        </div>
+
+        <div class="math">10 - 6 (building levels) = <strong>?</strong></div>
+      </div>
+
+      <div class="answer-box">
+        <label>YOUR ANSWER</label>
+        <div class="format">Floor _</div>
+      </div>
+
+      <div class="footer">
+        <span class="badge">Time: 5-7 mins</span>
+        <span class="badge warn">Show answer to HOST</span>
+        <span class="badge final">FINAL STATION!</span>
+      </div>
+    </div>
+  </body>
+</html>

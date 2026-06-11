@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Station 3 - Callback Hell</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #0d1117;
+        color: #c9d1d9;
+        min-height: 100vh;
+        padding: 20px;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      .header {
+        background: linear-gradient(135deg, #f0883e, #da3633);
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .header h1 {
+        font-size: 20px;
+        color: #fff;
+        margin-bottom: 5px;
+      }
+      .header .station {
+        font-size: 14px;
+        color: #ffd6a5;
+      }
+      .card {
+        background: #161b22;
+        border: 1px solid #30363d;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 16px;
+      }
+      .card h2 {
+        font-size: 16px;
+        color: #58a6ff;
+        margin-bottom: 12px;
+      }
+      .commit {
+        padding: 10px 12px;
+        border-radius: 6px;
+        margin: 6px 0;
+        font-family: monospace;
+        font-size: 12px;
+        background: #0d1117;
+        border: 1px solid #30363d;
+      }
+      .commit .hash {
+        color: #f0883e;
+      }
+      .commit .type {
+        color: #3fb950;
+        font-weight: bold;
+      }
+      .commit .msg {
+        color: #c9d1d9;
+      }
+      .code-block {
+        background: #0d1117;
+        border: 1px solid #30363d;
+        border-radius: 8px;
+        padding: 16px;
+        font-family: "Fira Code", "Courier New", monospace;
+        font-size: 13px;
+        line-height: 1.8;
+        color: #e6edf3;
+      }
+      .keyword {
+        color: #ff7b72;
+      }
+      .string {
+        color: #a5d6ff;
+      }
+      .comment {
+        color: #8b949e;
+      }
+      .func {
+        color: #d2a8ff;
+      }
+      .hint {
+        background: #1c2128;
+        border-left: 4px solid #f0883e;
+        padding: 12px 16px;
+        border-radius: 0 8px 8px 0;
+        margin: 12px 0;
+        font-size: 14px;
+      }
+      .answer-box {
+        background: #1c2128;
+        border: 2px dashed #f0883e;
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        margin-top: 16px;
+      }
+      .answer-box label {
+        font-size: 14px;
+        color: #8b949e;
+        display: block;
+        margin-bottom: 8px;
+      }
+      .answer-box .format {
+        font-size: 24px;
+        font-weight: bold;
+        color: #58a6ff;
+        letter-spacing: 2px;
+      }
+      .badge {
+        display: inline-block;
+        background: #da3633;
+        color: #fff;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: bold;
+        margin: 4px 2px;
+      }
+      .badge.warn {
+        background: #9e6a03;
+      }
+      .footer {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 12px;
+        color: #484f58;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>STATION 3</h1>
+        <div class="station">JavaScript Callback Hell</div>
+      </div>
+
+      <div class="card">
+        <h2>Git Commit Log - Async Journey</h2>
+        <div class="commit">
+          <span class="hash">a7f3b1</span> - <span class="type">feat:</span>
+          <span class="msg"><strong>promise</strong> to visit floor 3</span>
+        </div>
+        <div class="commit">
+          <span class="hash">8e2c9d</span> - <span class="type">fix:</span>
+          <span class="msg"><strong>async</strong> bug in elevator logic</span>
+        </div>
+        <div class="commit">
+          <span class="hash">5b4e6f</span> - <span class="type">refactor:</span>
+          <span class="msg">escape callback hell</span>
+        </div>
+        <div class="commit">
+          <span class="hash">c1d8a2</span> - <span class="type">chore:</span>
+          <span class="msg"
+            ><strong>await</strong> resolution in section C</span
+          >
+        </div>
+        <div class="commit">
+          <span class="hash">9f7e3c</span> - <span class="type">fix:</span>
+          <span class="msg">finally reached clarity</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Decode the Callback Chain</h2>
+        <div class="code-block">
+          <span class="func">visitFloor</span>(<span class="string">'2'</span>)
+          .<span class="func">then</span>(visitSection)
+          <span class="comment">// Which section?</span> .<span class="func"
+            >then</span
+          >(getRoom) <span class="comment">// Which room?</span> .<span
+            class="func"
+            >finally</span
+          >(celebrate)
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Hints</h2>
+        <div class="hint">
+          1. Find <strong>"section X"</strong> mentioned in the commits<br /><br />
+          2. Count the async keywords: <strong>promise</strong>,
+          <strong>async</strong>, <strong>await</strong><br />
+          &nbsp;&nbsp;&nbsp;That count = your room number!
+        </div>
+      </div>
+
+      <div class="answer-box">
+        <label>YOUR ANSWER</label>
+        <div class="format">C_.0_</div>
+      </div>
+
+      <div class="footer">
+        <span class="badge">Time: 7-10 mins</span>
+        <span class="badge warn">Show answer to HOST</span>
+      </div>
+    </div>
+  </body>
+</html>
